@@ -2,19 +2,16 @@ import redis from 'redis';
 import { promisify } from 'util';
 
 /**
- * Class for performing operations with Redis service
+ * Represents redis client
  */
 class RedisClient {
   constructor() {
     this.client = redis.createClient();
     this.getAsync = promisify(this.client.get).bind(this.client);
-
-    this.client.on('error', (error) => {
-      console.log(`Redis client not connected to the server: ${error.message}`);
+    this.client.on('error', (err) => {
+      console.log(`Redis client not connected to the server: ${err.message}`);
     });
-
     this.client.on('connect', () => {
-      //   console.log('Redis client connected to the server');
     });
   }
 
@@ -27,7 +24,7 @@ class RedisClient {
   }
 
   /**
-   * gets value corresponding to key in redis
+   * Retrives value corresponding to key in redis
    * @key {string} key to search for in redis
    * @return {string}  value of key
    */
@@ -37,19 +34,20 @@ class RedisClient {
   }
 
   /**
-   * Creates a new key in redis with a specific TTL
-   * @key {string} key to be saved in redis
+   * Stores key and its value along with expiration time
+   * @key {string} key to be saved
    * @value {string} value to be asigned to key
-   * @duration {number} TTL of key
+   * @duration {number} duration of key
    * @return {undefined}  No return
    */
   async set(key, value, duration) {
-    this.client.setex(key, duration, value);
+    await promisify(this.client.SETEX)
+      .bind(this.client)(key, duration, value);
   }
 
   /**
-   * Deletes key in redis service
-   * @key {string} key to be deleted
+   * Removes the value of a given key
+   * @key {string} key to be removed
    * @return {undefined}  No return
    */
   async del(key) {
@@ -58,5 +56,4 @@ class RedisClient {
 }
 
 const redisClient = new RedisClient();
-
 export default redisClient;
