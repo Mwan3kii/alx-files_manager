@@ -16,7 +16,7 @@ class RedisClient {
   }
 
   /**
-   * Checks if connection to Redis is Alive
+   * Checks whether connection to Redis is Alive
    * @return {boolean} true if connection alive or false if not
    */
   isAlive() {
