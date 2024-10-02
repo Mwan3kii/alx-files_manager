@@ -1,17 +1,17 @@
 import express from 'express';
 import AppController from '../controllers/AppController';
+import FilesController from '../controllers/FilesController';
 import UsersController from '../controllers/UsersController';
 import AuthController from '../controllers/AuthController';
-import FilesController from '../controllers/FilesController';
 
 function controllRoutes(app) {
   const router = express.Router();
   app.use('/', router);
-  router.get('/status', (req, res) => {
-    AppController.getStatus(req, res);
-  });
   router.get('/stats', (req, res) => {
     AppController.getStats(req, res);
+  });
+  router.get('/status', (req, res) => {
+    AppController.getStatus(req, res);
   });
   router.post('/users', (req, res) => {
     UsersController.postNew(req, res);
@@ -28,11 +28,11 @@ function controllRoutes(app) {
   router.post('/files', (req, res) => {
     FilesController.postUpload(req, res);
   });
-  router.get('/files/:id', (req, res) => {
-    FilesController.getShow(req, res);
-  });
   router.get('/files', (req, res) => {
     FilesController.getIndex(req, res);
+  });
+  router.get('/files/:id', (req, res) => {
+    FilesController.getShow(req, res);
   });
   router.put('/files/:id/publish', (req, res) => {
     FilesController.putPublish(req, res);
