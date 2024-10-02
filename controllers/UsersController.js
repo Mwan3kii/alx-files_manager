@@ -1,8 +1,8 @@
 import { ObjectId } from 'mongodb';
-import dbClient from '../utils/db';
 import sha1 from 'sha1';
-import userUtils from '../utils/user';
 import Queue from 'bull';
+import userUtils from '../utils/user';
+import dbClient from '../utils/db';
 
 const userQueue = new Queue('userQueue');
 

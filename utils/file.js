@@ -265,6 +265,3 @@ const fileUtils = {
 };
 
 export default fileUtils;
-
-// python3 image_upload.py image.png $TOKEN 0
-// python3 image_upload.py image.png $TOKEN $PARENT
